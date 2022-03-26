@@ -127,7 +127,7 @@
                                         <div class="mb-3">
                                             <label for="username">City</label>
                                             <input type="text" class="form-control" name="ship_city" id="city"
-                                                placeholder="City" value="{{ $orderData->city }}" required>
+                                                placeholder="City" value="{{ $orderData->ship_city }}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -200,7 +200,7 @@
                                             <label for="comp_name">Company Name</label>
                                             <input type="text" class="form-control" name="bill_company_name" id="bcn"
                                                 value="{{ $orderData->bill_company_name }}" placeholder="
-                                                                                    Company Name">
+                                                                                                            Company Name">
                                         </div>
                                     </div>
                                 </div>
@@ -295,7 +295,7 @@
                                                 <td>
                                                     <div class="mb-3">
                                                         <input type="number" class="form-control" name="amount[]"
-                                                            id="amount" placeholder="Amount" value="{{ $item->amount }}"
+                                                            id="amount" placeholder="Amount" value="{{ $item->amt }}"
                                                             required>
                                                     </div>
                                                 </td>
@@ -303,6 +303,8 @@
                                                     <div class="mb-3">
                                                         <input type="text" class="form-control" name="sku[]" id="sku"
                                                             placeholder="SKU" value="{{ $item->sku }}" required>
+                                                        <input type="hidden" name="productid[]"
+                                                            value="{{ $item->id }}" />
                                                     </div>
                                                 </td>
                                                 <td>
@@ -419,7 +421,7 @@
                         <!--end card-->
                     </div>
                     <!--end col--
-                                                                                                                                                                                                                                                    </div><!--end row-->
+                                                                                                                                                                                                                                                                            </div><!--end row-->
                 </div><!-- container -->
                 <!--end footer-->
             </div>

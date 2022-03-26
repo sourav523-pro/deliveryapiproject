@@ -101,14 +101,57 @@ class OrderController extends Controller
             $order_product->amt = $request->amount[$key];
             $order_product->sku = $request->sku[$key];
             $order_product->save();
-
         }
-
         return redirect()->back();
     }
-    protected function editOrderPost(){
-        $input = $request->all();
-        
+    protected function editOrderPost(Request $request){
+        Order::where('id', $request->id)->update([
+            'channel' => 'Custom',
+            'order_id' => $request->order_id,
+            'order_type' => $request->order_type,
+            'ship_firstname' => $request->ship_firstname,
+            'ship_lastname' => $request->ship_lastname,
+            'ship_company_name' => $request->ship_company_name,
+            'ship_address' => $request->ship_address,
+            'ship_address2' => $request->ship_address2,
+            'ship_pincode' => $request->ship_pincode,
+            'ship_city' => $request->ship_city,
+            'ship_state' => $request->ship_state,
+            'ship_phone' => $request->ship_phone,
+            'ship_email' => $request->ship_email,
+            'bill_firstname' => $request->bill_firstname,
+            'bill_lastname' => $request->bill_lastname,
+            'bill_company_name' => $request->bill_company_name,
+            'bill_address' => $request->bill_address,
+            'bill_address2' => $request->bill_address2,
+            'bill_pincode' => $request->bill_pincode,
+            'bill_city' => $request->bill_city,
+            'bill_state' => $request->bill_state,
+            'bill_phone' => $request->bill_phone,
+            'bill_email' => $request->bill_email,
+            'weight' => $request->weight,
+            'cm1' => $request->cm1,
+            'cm2' => $request->cm2,
+            'cm3' => $request->cm3,
+            'shipping_charges' => $request->shipping_charges,
+            'cod_charges' => $request->cod_charges,
+            'tax_amt' => $request->tax_amt,
+            'discount' => $request->discount,
+            'total' => $request->shipping_charges + $request->cod_charges +  $request->tax_amt - $request->discount,    
+        ]);
+
+        foreach($request->product_name as $key => $product_name){
+            OrderProduct::where('id', $request->productid[$key])->update([
+            'order_id' => $request->id,
+            'product_name' => $product_name,
+            'qty' => $request->qty[$key],
+            'amt' => $request->amount[$key],
+            'sku' => $request->sku[$key],
+            ]);
+        }
+
+        return back()->with('success', 'Order updated');
+
     }
 
     /**
